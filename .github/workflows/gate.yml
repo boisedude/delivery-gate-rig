@@ -1,0 +1,17 @@
+name: gate
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: quality gate (pure function of the committed tree)
+        run: |
+          status=$(cat quality.status 2>/dev/null || echo missing)
+          echo "quality.status=$status"
+          test "$status" = "pass"

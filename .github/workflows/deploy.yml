@@ -1,0 +1,14 @@
+name: deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: simulated deploy
+        run: echo "deploying ${GITHUB_SHA} to production"
